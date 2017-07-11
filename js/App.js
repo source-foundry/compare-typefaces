@@ -9,7 +9,7 @@ class App {
     this.initInterface()
     this.initFonts()
     this.updateFonts()
-    console.log(this)
+    this.interface.updateVariants()
   }
 
   initInterface() {
@@ -18,11 +18,12 @@ class App {
 
   initFonts() {
     this.fonts = []
-    this.fontContainer = document.createElement('div')
-    this.fontContainer.classList.add('semi-dark')
-    document.body.appendChild(this.fontContainer)
+    this.fontsContainer = document.createElement('div')
+    this.fontsContainer.classList.add('fonts')
+    this.fontsContainer.classList.add('semi-dark')
+    document.body.appendChild(this.fontsContainer)
     for (const fontName of this.fontList) {
-      const font = new Font(fontName, this.fontContainer)
+      const font = new Font(fontName, this.fontsContainer)
       this.fonts.push(font)
     }
   }

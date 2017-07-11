@@ -40,8 +40,16 @@ body {
   }
 
 .variant {
-  flex: 0 0 25%;
+  flex: 1 0;
+  display: none;
 }
+
+  .regular .variant.regular,
+  .italic .variant.italic,
+  .bold .variant.bold,
+  .bold-italic .variant.bold-italic {
+    display: block;
+  }
 
 .sample:not(:last-child) {
   margin-bottom: 5px;
