@@ -8,6 +8,7 @@ class Font {
     this.element.style.fontFamily = name
     this.container.appendChild(this.element)
     this.createTitle()
+    this.createLegend()
     this.createSamples()
   }
 
@@ -16,6 +17,21 @@ class Font {
     title.classList.add('title')
     title.textContent = this.name
     this.element.appendChild(title)
+  }
+
+  createLegend() {
+    const legend = document.createElement('div')
+    legend.classList.add('legend')
+    this.element.appendChild(legend)
+    const sizes = this.app.getSizes()
+    for (const size of sizes) {
+      const label = document.createElement('div')
+      label.classList.add('legend-size')
+      label.classList.add('size-' + size)
+      label.textContent = size
+      label.style.fontSize = size + 'px'
+      legend.appendChild(label)
+    }
   }
 
   createSamples() {

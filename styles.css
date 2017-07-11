@@ -9,7 +9,7 @@ body {
 
 .font {
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 2px;
 }
 
 .font .title {
@@ -17,31 +17,46 @@ body {
   flex: 0 0 100px;
 }
 
+.font .legend {
+  padding: 10px 5px 10px 10px;
+  flex: 0 0 20px;
+  background: rgba(0, 0, 0, 0.2);
+  color: #777;
+  margin-right: 2px;
+  text-align: right;
+}
+
+  .legend-size {
+    display: none;
+    line-height: 1.5;
+  }
+
 .samples {
-  padding: 10px;
   flex: 1 1;
   display: flex;
 }
 
-  .light .samples {
+  .light .variant {
     background: #fff; color: #000;
   }
 
-  .semi-light .samples {
+  .semi-light .variant {
     background: #ccc; color: #333;
   }
 
-  .dark .samples {
+  .dark .variant {
     background: #000; color: #fff;
   }
 
-  .semi-dark .samples {
+  .semi-dark .variant {
     background: #333; color: #ccc;
   }
 
 .variant {
   flex: 1 0;
   display: none;
+  padding: 10px;
+  margin-right: 2px;
 }
 
   .regular .variant.regular,
@@ -53,21 +68,21 @@ body {
 
 .sample {
   display: none;
+  line-height: 1.5;
 }
 
-  .size-7 .sample.size-7,
-  .size-8 .sample.size-8,
-  .size-9 .sample.size-9,
-  .size-10 .sample.size-10,
-  .size-11 .sample.size-11,
-  .size-12 .sample.size-12,
-  .size-13 .sample.size-13,
-  .size-14 .sample.size-14,
-  .size-15 .sample.size-15,
-  .size-16 .sample.size-16 {
+  .size-7 .size-7,
+  .size-8 .size-8,
+  .size-9 .size-9,
+  .size-10 .size-10,
+  .size-11 .size-11,
+  .size-12 .size-12,
+  .size-13 .size-13,
+  .size-14 .size-14,
+  .size-15 .size-15,
+  .size-16 .size-16 {
     display: block;
   }
 
   .sample:not(:last-child) {
-    margin-bottom: 5px;
   }
