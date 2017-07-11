@@ -1,7 +1,8 @@
 class Font {
-  constructor(name, container) {
+  constructor(name, app) {
     this.name = name
-    this.container = container
+    this.app = app
+    this.container = app.fontsContainer
     this.element = document.createElement('div')
     this.element.classList.add('font')
     this.element.style.fontFamily = name
@@ -18,7 +19,7 @@ class Font {
   }
 
   createSamples() {
-    const sizes = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    const sizes = this.app.getSizes()
     const variants = [
       ['regular', 'default', 'none'],
       ['italic', 'default', 'italic'],
@@ -41,6 +42,7 @@ class Font {
       for (const size of sizes) {
         const sample = document.createElement('div')
         sample.classList.add('sample')
+        sample.classList.add('size-' + size)
         sample.style.fontSize = size + 'px'
         this.samples.push(sample)
         container.appendChild(sample)

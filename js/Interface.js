@@ -33,6 +33,28 @@ class Interface {
       })
       this.variants[variant] = checkbox
     }
+
+    this.sizesContainer = document.createElement('div')
+    this.element.appendChild(this.sizesContainer)
+    this.sizes = {}
+    const sizes = this.app.getSizes()
+    for (const size of sizes) {
+      const label = document.createElement('label')
+      const checkbox = document.createElement('input')
+      checkbox.setAttribute('type', 'checkbox')
+      if (size >= 8 && size <= 14) {
+        checkbox.checked = true
+      }
+      label.appendChild(checkbox)
+      const text = document.createTextNode(size)
+      label.appendChild(text)
+      this.sizesContainer.appendChild(label)
+      checkbox.addEventListener('change', () => {
+        this.updateSizes()
+      })
+      this.sizes[size] = checkbox
+    }
+
   }
 
   updateVariants() {
@@ -42,6 +64,18 @@ class Interface {
         this.app.fontsContainer.classList.add(variant)
       } else {
         this.app.fontsContainer.classList.remove(variant)
+      }
+    }
+  }
+
+  updateSizes() {
+    for (const size in this.sizes) {
+      const checkbox = this.sizes[size]
+      const className = 'size-' + size
+      if (checkbox.checked) {
+        this.app.fontsContainer.classList.add(className)
+      } else {
+        this.app.fontsContainer.classList.remove(className)
       }
     }
   }

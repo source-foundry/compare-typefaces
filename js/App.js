@@ -26,6 +26,7 @@ class App {
     this.initFonts()
     this.updateFonts()
     this.interface.updateVariants()
+    this.interface.updateSizes()
   }
 
   initInterface() {
@@ -39,9 +40,13 @@ class App {
     this.fontsContainer.classList.add('semi-dark')
     document.body.appendChild(this.fontsContainer)
     for (const fontName of this.fontList) {
-      const font = new Font(fontName, this.fontsContainer)
+      const font = new Font(fontName, this)
       this.fonts.push(font)
     }
+  }
+
+  getSizes() {
+    return [7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
   }
 
   updateFonts() {
