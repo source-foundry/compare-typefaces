@@ -28,7 +28,7 @@ class Font {
       const label = document.createElement('div')
       label.classList.add('legend-size')
       label.classList.add('size-' + size)
-      label.textContent = size
+      label.textContent = size + 'px'
       label.style.fontSize = size + 'px'
       legend.appendChild(label)
     }

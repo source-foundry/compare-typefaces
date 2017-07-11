@@ -46,7 +46,7 @@ class Interface {
         checkbox.checked = true
       }
       label.appendChild(checkbox)
-      const text = document.createTextNode(size)
+      const text = document.createTextNode(size + 'px')
       label.appendChild(text)
       this.sizesContainer.appendChild(label)
       checkbox.addEventListener('change', () => {
