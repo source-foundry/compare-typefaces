@@ -2,8 +2,24 @@ class App {
   constructor () {
     this.fontList = [
       "Hack",
-      "Arial",
-      "Times New Roman"
+      "Menlo",
+      "Courier New",
+      "Monaco",
+      "Andale Mono",
+      "Anonymous Pro",
+      "Consola Mono",
+      "Cousine",
+      "DejaVu Sans Mono",
+      "Fira Mono",
+      "Inconsolata",
+      "Input",
+      "M+ 1m",
+      "monofur",
+      "Monoid",
+      "OCR A Std",
+      "Source Code Pro",
+      "Ubuntu Mono",
+      "Bitstream Vera Sans Mono"
     ]
 
     this.initInterface()
