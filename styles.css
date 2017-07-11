@@ -1,0 +1,17 @@
+.interface {
+  padding: 10px;
+}
+
+.font {
+  border-top: 1px solid #000;
+  padding: 10px;
+}
+
+.font .title {
+  padding-bottom: 10px;
+}
+
+.samples {
+  border-top: 1px dotted #000;
+  padding-top: 10px;
+}
