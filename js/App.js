@@ -19,6 +19,7 @@ class App {
   initFonts() {
     this.fonts = []
     this.fontContainer = document.createElement('div')
+    this.fontContainer.classList.add('semi-dark')
     document.body.appendChild(this.fontContainer)
     for (const fontName of this.fontList) {
       const font = new Font(fontName, this.fontContainer)

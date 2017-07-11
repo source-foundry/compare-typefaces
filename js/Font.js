@@ -19,15 +19,31 @@ class Font {
 
   createSamples() {
     const sizes = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    const variants = [
+      ['default', 'none'],
+      ['default', 'italic'],
+      ['bold', 'none'],
+      ['bold', 'italic']
+    ]
     this.samples = []
     this.sampleContainer = document.createElement('div')
     this.sampleContainer.classList.add('samples')
     this.element.appendChild(this.sampleContainer)
-    for (const size of sizes) {
-      const sample = document.createElement('div')
-      sample.style.fontSize = size + 'px'
-      this.samples.push(sample)
-      this.sampleContainer.appendChild(sample)
+
+    for (const variant of variants) {
+      const container = document.createElement('div')
+      container.classList.add('variant')
+      this.sampleContainer.appendChild(container)
+      container.style.fontWeight = variant[0]
+      container.style.fontStyle = variant[1]
+
+      for (const size of sizes) {
+        const sample = document.createElement('div')
+        sample.classList.add('sample')
+        sample.style.fontSize = size + 'px'
+        this.samples.push(sample)
+        container.appendChild(sample)
+      }
     }
   }
 
