@@ -12,10 +12,33 @@ class Interface {
     this.element.appendChild(this.textInput)
     this.textInput.addEventListener('input', () => this.app.updateFonts())
 
+    this.initVariants()
+    this.initSizes()
+    this.initThemes()
+
+    this.presetsContainer = document.createElement('div')
+    this.element.appendChild(this.presetsContainer)
+    const presets = this.app.getPresets()
+    for (const preset of presets) {
+      const button = document.createElement('button')
+      this.presetsContainer.appendChild(button)
+      button.textContent = preset
+      button.addEventListener('click', event => {
+        let text = event.target.textContent
+        if (event.shiftKey) {
+          text = this.getText() + ' ' + text
+        }
+        this.setText(text)
+        this.app.updateFonts()
+      })
+    }
+  }
+
+  initVariants() {
     this.variantsContainer = document.createElement('div')
     this.element.appendChild(this.variantsContainer)
     this.variants = {}
-    const variants = ['regular', 'italic', 'bold', 'bold-italic']
+    const variants = this.app.getFontVariants()
     for (const variant of variants) {
       const label = document.createElement('label')
       const checkbox = document.createElement('input')
@@ -32,7 +55,20 @@ class Interface {
       })
       this.variants[variant] = checkbox
     }
+  }
 
+  updateVariants() {
+    for (const variant in this.variants) {
+      const checkbox = this.variants[variant]
+      if (checkbox.checked) {
+        this.app.fontsContainer.classList.add(variant)
+      } else {
+        this.app.fontsContainer.classList.remove(variant)
+      }
+    }
+  }
+
+  initSizes() {
     this.sizesContainer = document.createElement('div')
     this.element.appendChild(this.sizesContainer)
     this.sizes = {}
@@ -41,7 +77,7 @@ class Interface {
       const label = document.createElement('label')
       const checkbox = document.createElement('input')
       checkbox.setAttribute('type', 'checkbox')
-      if (size >= 8 && size <= 14) {
+      if (size >= 9 && size <= 15 && size % 2) {
         checkbox.checked = true
       }
       label.appendChild(checkbox)
@@ -53,7 +89,21 @@ class Interface {
       })
       this.sizes[size] = checkbox
     }
+  }
 
+  updateSizes() {
+    for (const size in this.sizes) {
+      const checkbox = this.sizes[size]
+      const className = 'size-' + size
+      if (checkbox.checked) {
+        this.app.fontsContainer.classList.add(className)
+      } else {
+        this.app.fontsContainer.classList.remove(className)
+      }
+    }
+  }
+
+  initThemes() {
     this.currentTheme = 'semi-dark'
     this.themesContainer = document.createElement('div')
     this.element.appendChild(this.themesContainer)
@@ -75,46 +125,6 @@ class Interface {
         this.updateTheme()
       })
       this.themes[theme] = radiobutton
-    }
-
-    this.presetsContainer = document.createElement('div')
-    this.element.appendChild(this.presetsContainer)
-    const presets = this.app.getPresets()
-    for (const preset of presets) {
-      const button = document.createElement('button')
-      this.presetsContainer.appendChild(button)
-      button.textContent = preset
-      button.addEventListener('click', event => {
-        let text = event.target.textContent
-        if (event.shiftKey) {
-          text = this.getText() + ' ' + text
-        }
-        this.setText(text)
-        this.app.updateFonts()
-      })
-    }
-  }
-
-  updateVariants() {
-    for (const variant in this.variants) {
-      const checkbox = this.variants[variant]
-      if (checkbox.checked) {
-        this.app.fontsContainer.classList.add(variant)
-      } else {
-        this.app.fontsContainer.classList.remove(variant)
-      }
-    }
-  }
-
-  updateSizes() {
-    for (const size in this.sizes) {
-      const checkbox = this.sizes[size]
-      const className = 'size-' + size
-      if (checkbox.checked) {
-        this.app.fontsContainer.classList.add(className)
-      } else {
-        this.app.fontsContainer.classList.remove(className)
-      }
     }
   }
 

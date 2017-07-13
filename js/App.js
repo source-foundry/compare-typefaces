@@ -22,6 +22,13 @@ class App {
       "Bitstream Vera Sans Mono"
     ]
 
+    this.fontVariants = [
+      'regular',
+      'italic',
+      'bold',
+      'bold-italic'
+    ]
+
     this.presets = [
       "DO08B",
       "&86",
@@ -42,6 +49,17 @@ class App {
       "/|¦\\",
       "`'’\""
     ]
+
+    this.themes = [
+      'light',
+      'semi-light',
+      'not-light',
+      'not-dark',
+      'semi-dark',
+      'dark'
+    ]
+
+    this.sizes = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 20, 24]
 
     this.initInterface()
     this.initFonts()
@@ -67,15 +85,19 @@ class App {
   }
 
   getSizes() {
-    return [7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    return this.sizes
   }
 
   getThemes() {
-    return ['light', 'semi-light', 'not-light', 'not-dark', 'semi-dark', 'dark']
+    return this.themes
   }
 
   getPresets() {
     return this.presets
+  }
+
+  getFontVariants() {
+    return this.fontVariants
   }
 
   updateFonts() {
