@@ -107,11 +107,20 @@ input[type=text] {
   }
 
 .project-header {
-  position: relative;
+  position: relative; z-index: 101;
   background: #000; color: #fff;
   font-size: 14px; line-height: 36px;
   height: 36px;
 }
+
+  .project-header:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -6px; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0));
+  }
 
   .project-header .left {
     position: absolute;
@@ -155,7 +164,7 @@ input[type=text] {
       .project-header .links li:last-child { padding-right: 0; }
 
 .interface {
-  position: relative;
+  position: relative; z-index: 100;
   padding: 24px;
   background: #555;
 }
