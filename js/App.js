@@ -49,6 +49,10 @@ class App {
     return [7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
   }
 
+  getThemes() {
+    return ['light', 'semi-light', 'not-light', 'not-dark', 'semi-dark', 'dark']
+  }
+
   updateFonts() {
     const sampleText = this.interface.getText()
     for (const font of this.fonts) {

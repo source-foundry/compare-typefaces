@@ -15,7 +15,6 @@ class Interface {
     this.variantsContainer = document.createElement('div')
     this.element.appendChild(this.variantsContainer)
     this.variants = {}
-
     const variants = ['regular', 'italic', 'bold', 'bold-italic']
     for (const variant of variants) {
       const label = document.createElement('label')
@@ -55,6 +54,28 @@ class Interface {
       this.sizes[size] = checkbox
     }
 
+    this.currentTheme = 'semi-dark'
+    this.themesContainer = document.createElement('div')
+    this.element.appendChild(this.themesContainer)
+    this.themes = {}
+    const themes = this.app.getThemes()
+    for (const theme of themes) {
+      const label = document.createElement('label')
+      const radiobutton = document.createElement('input')
+      radiobutton.setAttribute('type', 'radio')
+      radiobutton.setAttribute('name', 'theme')
+      if (theme == this.currentTheme) {
+        radiobutton.checked = true
+      }
+      label.appendChild(radiobutton)
+      const text = document.createTextNode(theme)
+      label.appendChild(text)
+      this.themesContainer.appendChild(label)
+      radiobutton.addEventListener('change', () => {
+        this.updateTheme()
+      })
+      this.themes[theme] = radiobutton
+    }
   }
 
   updateVariants() {
@@ -78,6 +99,19 @@ class Interface {
         this.app.fontsContainer.classList.remove(className)
       }
     }
+  }
+
+  updateTheme() {
+    const newTheme = this.app.getThemes().reduce((value, theme) => {
+      if (this.themes[theme].checked) {
+        return theme
+      } else {
+        return value
+      }
+    })
+    this.app.fontsContainer.classList.remove(this.currentTheme)
+    this.app.fontsContainer.classList.add(newTheme)
+    this.currentTheme = newTheme
   }
 
   getText() {

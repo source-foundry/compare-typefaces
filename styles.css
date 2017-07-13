@@ -40,28 +40,20 @@ body {
   display: flex;
 }
 
-  .light .variant {
-    background: #fff; color: #000;
-  }
-
-  .semi-light .variant {
-    background: #ccc; color: #333;
-  }
-
-  .dark .variant {
-    background: #000; color: #fff;
-  }
-
-  .semi-dark .variant {
-    background: #333; color: #ccc;
-  }
-
 .variant {
   flex: 1 0;
   display: none;
   padding: 10px;
   margin-right: 2px;
+  transition: background-color 0.35s, color 0.35s;
 }
+
+  .light .variant { background: #fff; color: #000; }
+  .semi-light .variant { background: #ccc; color: #333; }
+  .not-light .variant { background: #999; color: #666; }
+  .not-dark .variant { background: #666; color: #999; }
+  .semi-dark .variant { background: #333; color: #ccc; }
+  .dark .variant { background: #000; color: #fff; }
 
   .regular .variant.regular,
   .italic .variant.italic,
