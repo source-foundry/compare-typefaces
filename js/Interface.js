@@ -32,6 +32,16 @@ class Interface {
         this.app.updateFonts()
       })
     }
+
+    this.resetContainer = document.createElement('div')
+    this.element.appendChild(this.resetContainer)
+    this.resetButton = document.createElement('button')
+    this.resetButton.textContent = 'Reset to defaults'
+    this.resetButton.addEventListener('click', function() {
+      window.localStorage.clear()
+      document.location.reload()
+    })
+    this.resetContainer.appendChild(this.resetButton)
   }
 
   initVariants() {
