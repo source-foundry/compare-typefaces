@@ -61,6 +61,8 @@ class App {
 
     this.sizes = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 20, 24]
 
+    this.settings = new Settings()
+
     this.initInterface()
     this.initFonts()
     this.updateFonts()
@@ -76,7 +78,7 @@ class App {
     this.fonts = []
     this.fontsContainer = document.createElement('div')
     this.fontsContainer.classList.add('fonts')
-    this.fontsContainer.classList.add('semi-dark')
+    this.fontsContainer.classList.add(this.settings.get('theme'))
     document.body.appendChild(this.fontsContainer)
     for (const fontName of this.fontList) {
       const font = new Font(fontName, this)

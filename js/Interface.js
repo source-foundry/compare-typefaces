@@ -8,7 +8,7 @@ class Interface {
 
     this.textInput = document.createElement('input')
     this.textInput.setAttribute('type', 'text')
-    this.textInput.value = 'DO08B &86 OQ 1lI ., :; C({['
+    this.textInput.value = this.app.settings.get('sample')
     this.element.appendChild(this.textInput)
     this.textInput.addEventListener('input', () => this.app.updateFonts())
 
@@ -39,11 +39,12 @@ class Interface {
     this.element.appendChild(this.variantsContainer)
     this.variants = {}
     const variants = this.app.getFontVariants()
+    const config = this.app.settings.get('variants').split(',')
     for (const variant of variants) {
       const label = document.createElement('label')
       const checkbox = document.createElement('input')
       checkbox.setAttribute('type', 'checkbox')
-      if (variant !== 'bold-italic') {
+      if (config.includes(variant)) {
         checkbox.checked = true
       }
       label.appendChild(checkbox)
@@ -58,14 +59,17 @@ class Interface {
   }
 
   updateVariants() {
+    let setting = []
     for (const variant in this.variants) {
       const checkbox = this.variants[variant]
       if (checkbox.checked) {
         this.app.fontsContainer.classList.add(variant)
+        setting.push(variant)
       } else {
         this.app.fontsContainer.classList.remove(variant)
       }
     }
+    this.app.settings.set('variants', setting.join(','))
   }
 
   initSizes() {
@@ -73,11 +77,12 @@ class Interface {
     this.element.appendChild(this.sizesContainer)
     this.sizes = {}
     const sizes = this.app.getSizes()
+    const config = this.app.settings.get('sizes').split(',').map(size => parseInt(size, 10))
     for (const size of sizes) {
       const label = document.createElement('label')
       const checkbox = document.createElement('input')
       checkbox.setAttribute('type', 'checkbox')
-      if (size >= 9 && size <= 15 && size % 2) {
+      if (config.includes(size)) {
         checkbox.checked = true
       }
       label.appendChild(checkbox)
@@ -92,19 +97,22 @@ class Interface {
   }
 
   updateSizes() {
+    let setting = []
     for (const size in this.sizes) {
       const checkbox = this.sizes[size]
       const className = 'size-' + size
       if (checkbox.checked) {
         this.app.fontsContainer.classList.add(className)
+        setting.push(size)
       } else {
         this.app.fontsContainer.classList.remove(className)
       }
     }
+    this.app.settings.set('sizes', setting.join(','))
   }
 
   initThemes() {
-    this.currentTheme = 'semi-dark'
+    this.currentTheme = this.app.settings.get('theme')
     this.themesContainer = document.createElement('div')
     this.element.appendChild(this.themesContainer)
     this.themes = {}
@@ -139,10 +147,12 @@ class Interface {
     this.app.fontsContainer.classList.remove(this.currentTheme)
     this.app.fontsContainer.classList.add(newTheme)
     this.currentTheme = newTheme
+    this.app.settings.set('theme', newTheme)
   }
 
   setText(text) {
     this.textInput.value = text
+    this.app.settings.set('sample', text)
   }
 
   getText() {
