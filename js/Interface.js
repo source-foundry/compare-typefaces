@@ -76,6 +76,19 @@ class Interface {
       })
       this.themes[theme] = radiobutton
     }
+
+    this.presetsContainer = document.createElement('div')
+    this.element.appendChild(this.presetsContainer)
+    const presets = this.app.getPresets()
+    for (const preset of presets) {
+      const button = document.createElement('button')
+      this.presetsContainer.appendChild(button)
+      button.textContent = preset
+      button.addEventListener('click', event => {
+        this.setText(event.target.textContent)
+        this.app.updateFonts()
+      })
+    }
   }
 
   updateVariants() {
@@ -112,6 +125,10 @@ class Interface {
     this.app.fontsContainer.classList.remove(this.currentTheme)
     this.app.fontsContainer.classList.add(newTheme)
     this.currentTheme = newTheme
+  }
+
+  setText(text) {
+    this.textInput.value = text
   }
 
   getText() {

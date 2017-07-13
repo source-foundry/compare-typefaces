@@ -22,6 +22,27 @@ class App {
       "Bitstream Vera Sans Mono"
     ]
 
+    this.presets = [
+      "DO08B",
+      "&86",
+      "OQ",
+      "1lI",
+      "jilL",
+      ".,",
+      ":;",
+      "C({[",
+      "-~¬–—",
+      "b65S$",
+      "2Z7",
+      "AR",
+      "9gq",
+      "oa",
+      "ce",
+      "@©",
+      "/|¦\\",
+      "`'’\""
+    ]
+
     this.initInterface()
     this.initFonts()
     this.updateFonts()
@@ -51,6 +72,10 @@ class App {
 
   getThemes() {
     return ['light', 'semi-light', 'not-light', 'not-dark', 'semi-dark', 'dark']
+  }
+
+  getPresets() {
+    return this.presets
   }
 
   updateFonts() {
