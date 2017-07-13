@@ -66,7 +66,7 @@ class Font {
     }
   }
 
-  setText(text) {
+  setSampleText(text) {
     for (const sample of this.samples) {
       sample.textContent = text
     }

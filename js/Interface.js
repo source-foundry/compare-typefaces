@@ -1,47 +1,36 @@
 class Interface {
   constructor(app) {
     this.app = app
+    this.initContainer()
+    this.initSampleText()
+    this.initVariants()
+    this.initSizes()
+    this.initThemes()
+    this.initPresets()
+    this.initResetToDefaultsButton()
+  }
 
+  initContainer() {
     this.element = document.createElement('div')
     document.body.appendChild(this.element)
     this.element.classList.add('interface')
+  }
 
+  initSampleText() {
     this.textInput = document.createElement('input')
     this.textInput.setAttribute('type', 'text')
     this.textInput.value = this.app.settings.get('sample')
     this.element.appendChild(this.textInput)
     this.textInput.addEventListener('input', () => this.app.updateFonts())
+  }
 
-    this.initVariants()
-    this.initSizes()
-    this.initThemes()
+  setSampleText(text) {
+    this.textInput.value = text
+    this.app.settings.set('sample', text)
+  }
 
-    this.presetsContainer = document.createElement('div')
-    this.element.appendChild(this.presetsContainer)
-    const presets = this.app.getPresets()
-    for (const preset of presets) {
-      const button = document.createElement('button')
-      this.presetsContainer.appendChild(button)
-      button.textContent = preset
-      button.addEventListener('click', event => {
-        let text = event.target.textContent
-        if (event.shiftKey) {
-          text = this.getText() + ' ' + text
-        }
-        this.setText(text)
-        this.app.updateFonts()
-      })
-    }
-
-    this.resetContainer = document.createElement('div')
-    this.element.appendChild(this.resetContainer)
-    this.resetButton = document.createElement('button')
-    this.resetButton.textContent = 'Reset to defaults'
-    this.resetButton.addEventListener('click', function() {
-      window.localStorage.clear()
-      document.location.reload()
-    })
-    this.resetContainer.appendChild(this.resetButton)
+  getSampleText() {
+    return this.textInput.value
   }
 
   initVariants() {
@@ -160,12 +149,34 @@ class Interface {
     this.app.settings.set('theme', newTheme)
   }
 
-  setText(text) {
-    this.textInput.value = text
-    this.app.settings.set('sample', text)
+  initPresets() {
+    this.presetsContainer = document.createElement('div')
+    this.element.appendChild(this.presetsContainer)
+    const presets = this.app.getPresets()
+    for (const preset of presets) {
+      const button = document.createElement('button')
+      this.presetsContainer.appendChild(button)
+      button.textContent = preset
+      button.addEventListener('click', event => {
+        let text = event.target.textContent
+        if (event.shiftKey) {
+          text = this.getSampleText() + ' ' + text
+        }
+        this.setSampleText(text)
+        this.app.updateFonts()
+      })
+    }
   }
 
-  getText() {
-    return this.textInput.value
+  initResetToDefaultsButton() {
+    this.resetContainer = document.createElement('div')
+    this.element.appendChild(this.resetContainer)
+    this.resetButton = document.createElement('button')
+    this.resetButton.textContent = 'Reset to defaults'
+    this.resetButton.addEventListener('click', function() {
+      window.localStorage.clear()
+      document.location.reload()
+    })
+    this.resetContainer.appendChild(this.resetButton)
   }
 }

@@ -103,9 +103,9 @@ class App {
   }
 
   updateFonts() {
-    const sampleText = this.interface.getText()
+    const sampleText = this.interface.getSampleText()
     for (const font of this.fonts) {
-      font.setText(sampleText)
+      font.setSampleText(sampleText)
     }
   }
 }
