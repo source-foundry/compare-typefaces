@@ -85,7 +85,11 @@ class Interface {
       this.presetsContainer.appendChild(button)
       button.textContent = preset
       button.addEventListener('click', event => {
-        this.setText(event.target.textContent)
+        let text = event.target.textContent
+        if (event.shiftKey) {
+          text = this.getText() + ' ' + text
+        }
+        this.setText(text)
         this.app.updateFonts()
       })
     }
