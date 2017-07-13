@@ -1,26 +1,48 @@
 class Interface {
   constructor(app) {
     this.app = app
-    this.initContainer()
+    this.initContainers()
     this.initSampleText()
+    this.initPresets()
     this.initVariants()
     this.initSizes()
     this.initThemes()
-    this.initPresets()
     this.initResetToDefaultsButton()
   }
 
-  initContainer() {
+  initContainers() {
     this.element = document.createElement('div')
     document.body.appendChild(this.element)
     this.element.classList.add('interface')
+
+    this.inputContainer = document.createElement('div')
+    this.inputContainer.classList.add('interface-row')
+    this.element.appendChild(this.inputContainer)
+
+    this.settingsContainer = document.createElement('div')
+    this.settingsContainer.classList.add('interface-row')
+    this.element.appendChild(this.settingsContainer)
   }
 
   initSampleText() {
+    this.textInputContainer = document.createElement('div')
+    this.textInputContainer.classList.add('input-group')
+    this.inputContainer.appendChild(this.textInputContainer)
+
+    const title = document.createElement('div')
+    title.classList.add('title')
+    title.textContent = 'sample text'
+    this.textInputContainer.appendChild(title)
+
+    const buttons = document.createElement('div')
+    buttons.classList.add('buttons')
+    this.textInputContainer.appendChild(buttons)
+
     this.textInput = document.createElement('input')
     this.textInput.setAttribute('type', 'text')
+    this.textInput.setAttribute('size', 32)
     this.textInput.value = this.app.settings.get('sample')
-    this.element.appendChild(this.textInput)
+    this.textInputContainer.appendChild(this.textInput)
     this.textInput.addEventListener('input', () => this.app.updateFonts())
   }
 
@@ -35,21 +57,37 @@ class Interface {
 
   initVariants() {
     this.variantsContainer = document.createElement('div')
-    this.element.appendChild(this.variantsContainer)
+    this.variantsContainer.classList.add('input-group')
+    this.settingsContainer.appendChild(this.variantsContainer)
+
+    const title = document.createElement('div')
+    title.classList.add('title')
+    title.textContent = 'variants'
+    this.variantsContainer.appendChild(title)
+
+    const buttons = document.createElement('div')
+    buttons.classList.add('buttons')
+    this.variantsContainer.appendChild(buttons)
+
     this.variants = {}
     const variants = this.app.getFontVariants()
     const config = this.app.settings.get('variants').split(',')
     for (const variant of variants) {
       const label = document.createElement('label')
+      label.classList.add('button')
+      label.classList.add('icon')
+      label.classList.add('icon-variant')
+      label.classList.add(variant)
       const checkbox = document.createElement('input')
       checkbox.setAttribute('type', 'checkbox')
       if (config.includes(variant)) {
         checkbox.checked = true
       }
       label.appendChild(checkbox)
-      const text = document.createTextNode(variant)
-      label.appendChild(text)
-      this.variantsContainer.appendChild(label)
+      const span = document.createElement('span')
+      span.textContent = variant
+      label.appendChild(span)
+      buttons.appendChild(label)
       checkbox.addEventListener('change', () => {
         this.updateVariants()
       })
@@ -73,21 +111,34 @@ class Interface {
 
   initSizes() {
     this.sizesContainer = document.createElement('div')
-    this.element.appendChild(this.sizesContainer)
+    this.sizesContainer.classList.add('input-group')
+    this.settingsContainer.appendChild(this.sizesContainer)
+
+    const title = document.createElement('div')
+    title.classList.add('title')
+    title.textContent = 'sizes'
+    this.sizesContainer.appendChild(title)
+
+    const buttons = document.createElement('div')
+    buttons.classList.add('buttons')
+    this.sizesContainer.appendChild(buttons)
+
     this.sizes = {}
     const sizes = this.app.getSizes()
     const config = this.app.settings.get('sizes').split(',').map(size => parseInt(size, 10))
     for (const size of sizes) {
       const label = document.createElement('label')
+      label.classList.add('button')
       const checkbox = document.createElement('input')
       checkbox.setAttribute('type', 'checkbox')
       if (config.includes(size)) {
         checkbox.checked = true
       }
       label.appendChild(checkbox)
-      const text = document.createTextNode(size + 'px')
-      label.appendChild(text)
-      this.sizesContainer.appendChild(label)
+      const span = document.createElement('span')
+      span.textContent = size
+      label.appendChild(span)
+      buttons.appendChild(label)
       checkbox.addEventListener('change', () => {
         this.updateSizes()
       })
@@ -113,11 +164,26 @@ class Interface {
   initThemes() {
     this.currentTheme = this.app.settings.get('theme')
     this.themesContainer = document.createElement('div')
-    this.element.appendChild(this.themesContainer)
+    this.themesContainer.classList.add('input-group')
+    this.settingsContainer.appendChild(this.themesContainer)
+
+    const title = document.createElement('div')
+    title.classList.add('title')
+    title.textContent = 'theme'
+    this.themesContainer.appendChild(title)
+
+    const buttons = document.createElement('div')
+    buttons.classList.add('buttons')
+    this.themesContainer.appendChild(buttons)
+
     this.themes = {}
     const themes = this.app.getThemes()
     for (const theme of themes) {
       const label = document.createElement('label')
+      label.classList.add('button')
+      label.classList.add('icon')
+      label.classList.add('icon-theme')
+      label.classList.add(theme)
       const radiobutton = document.createElement('input')
       radiobutton.setAttribute('type', 'radio')
       radiobutton.setAttribute('name', 'theme')
@@ -125,9 +191,10 @@ class Interface {
         radiobutton.checked = true
       }
       label.appendChild(radiobutton)
-      const text = document.createTextNode(theme)
-      label.appendChild(text)
-      this.themesContainer.appendChild(label)
+      const span = document.createElement('span')
+      span.textContent = theme
+      label.appendChild(span)
+      buttons.appendChild(label)
       radiobutton.addEventListener('change', () => {
         this.updateTheme()
       })
@@ -151,11 +218,22 @@ class Interface {
 
   initPresets() {
     this.presetsContainer = document.createElement('div')
-    this.element.appendChild(this.presetsContainer)
+    this.presetsContainer.classList.add('input-group')
+    this.inputContainer.appendChild(this.presetsContainer)
+
+    const title = document.createElement('div')
+    title.classList.add('title')
+    title.textContent = 'character presets -- click to replace sample text -- shift+click to append to sample text'
+    this.presetsContainer.appendChild(title)
+
+    const buttons = document.createElement('div')
+    buttons.classList.add('buttons')
+    this.presetsContainer.appendChild(buttons)
+
     const presets = this.app.getPresets()
     for (const preset of presets) {
       const button = document.createElement('button')
-      this.presetsContainer.appendChild(button)
+      buttons.appendChild(button)
       button.textContent = preset
       button.addEventListener('click', event => {
         let text = event.target.textContent
@@ -170,13 +248,24 @@ class Interface {
 
   initResetToDefaultsButton() {
     this.resetContainer = document.createElement('div')
-    this.element.appendChild(this.resetContainer)
+    this.resetContainer.classList.add('input-group')
+    this.settingsContainer.appendChild(this.resetContainer)
+
+    const title = document.createElement('div')
+    title.classList.add('title')
+    title.textContent = 'actions'
+    this.resetContainer.appendChild(title)
+
+    const buttons = document.createElement('div')
+    buttons.classList.add('buttons')
+    this.resetContainer.appendChild(buttons)
+
     this.resetButton = document.createElement('button')
     this.resetButton.textContent = 'Reset to defaults'
     this.resetButton.addEventListener('click', function() {
       window.localStorage.clear()
       document.location.reload()
     })
-    this.resetContainer.appendChild(this.resetButton)
+    buttons.appendChild(this.resetButton)
   }
 }

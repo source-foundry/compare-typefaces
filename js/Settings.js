@@ -4,7 +4,7 @@ class Settings {
       sample: 'The quick brown fox is asleep...',
       sizes: '9,11,13,15',
       variants: 'regular,italic',
-      theme: 'semi-dark'
+      theme: 'light'
     }
   }
 
